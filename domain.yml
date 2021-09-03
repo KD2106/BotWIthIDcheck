@@ -1,0 +1,51 @@
+version: '2.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet
+- enter_id
+- fill_info
+- goodbye
+- affirm
+- deny
+- mood_great
+- mood_unhappy
+- bot_challenge
+entities:
+- idno
+- is_authorised
+slots:
+  idno:
+    type: any
+    influence_conversation: false
+  is_authorised:
+    type: bool
+    influence_conversation: true
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_idno:
+  - text: Please enter your ID number.
+  utter_id_success:
+  - text: Success! Your id number is {idno}
+actions:
+- utter_greet
+- validate_id_form
+forms:
+  id_form:
+    required_slots:
+      idno:
+      - entity: idno
+        type: from_entity
